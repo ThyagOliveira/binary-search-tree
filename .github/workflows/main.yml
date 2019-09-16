@@ -11,5 +11,3 @@ jobs:
     - uses: actions/checkout@v1
     - name: compile
       run: gcc Main.c -o Main
-    - name: run
-      run: ./Main
