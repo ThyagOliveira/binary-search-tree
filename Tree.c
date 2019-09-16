@@ -10,6 +10,7 @@ struct tree {
 
 struct node {
 	int info;
+    char * name;
 	Node * dad;
 	Node * left;
 	Node * right;
@@ -34,22 +35,23 @@ void destroyTree(Tree * t) {
     free(t);
 }
 
-Node * add_rec(Node * root, int value) {
+Node * add_rec(Node * root, int value, char * name) {
     if(root != NULL) {
         if(root->info > value) {
-            root->left = add_rec(root->left, value);
+            root->left = add_rec(root->left, value, name);
         }
         if(root->info < value) {
-            root->right = add_rec(root->right, value);
+            root->right = add_rec(root->right, value, name);
         }
     } else {
         root = malloc(sizeof(Node));
         root->info = value;
+        root->name = name;
         root->left = NULL;
         root->right = NULL;
     }
 }
 
-void add(Tree * tree, int value) {
-    tree->root = add_rec(tree->root, value);
+void add(Tree * tree, int value, char * name) {
+    tree->root = add_rec(tree->root, value, name);
 }
