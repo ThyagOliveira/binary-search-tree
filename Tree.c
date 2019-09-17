@@ -55,3 +55,42 @@ Node * add_rec(Node * root, int value, char * name) {
 void add(Tree * tree, int value, char * name) {
     tree->root = add_rec(tree->root, value, name);
 }
+
+
+int count_nodes_rec(Node * node) {
+    if(node != NULL) {
+        return count_nodes_rec(node->left) + count_nodes_rec(node->right) + 1;
+    }
+    return 0;
+}
+
+int count_nodes(Tree * tree) {
+    return count_nodes_rec(tree->root);
+}
+
+int count_leaf_rec(Node * node) {
+    if(node != NULL) {
+        if(node->left == NULL && node->right) {
+            return 1;
+        }
+        return count_leaf_rec(node->left) + count_leaf_rec(node->right);
+    }
+    return 0;
+}
+
+int count_leaf(Tree * tree) {
+    return count_leaf_rec(tree->root);
+}
+
+int height_rec(Node * node) {
+    if(node != NULL) {
+        int heightLeft = height_rec(node->left);
+        int heightRight = height_rec(node->right);
+        return(heightLeft > heightRight ? heightLeft : heightRight) + 1;
+    }
+    return 0;
+}
+
+int height(Tree * tree) {
+    return height_rec(tree->root);
+}
