@@ -94,3 +94,35 @@ int height_rec(Node * node) {
 int height(Tree * tree) {
     return height_rec(tree->root);
 }
+
+  ///////////////
+ // Rotations //
+///////////////
+
+Node * rotation_left(Node * node) {
+    Node * nodeHelp = node->right;
+
+    node->right = nodeHelp->left;
+    nodeHelp->left = node; 
+
+    return nodeHelp;   
+}
+
+Node * rotation_right(Node * node) {
+    Node * nodeHelp = node->left;
+
+    node->left = nodeHelp->right;
+    nodeHelp->right = node;
+
+    return nodeHelp;
+}
+
+Node * double_rotation_left(Node * node) {
+    node->right =  rotation_right(node->right);
+    return rotation_left(node);
+}
+
+Node * double_rotation_right(Node * node) {
+    node->left = rotation_left(node->left);
+    return rotation_right(node);
+}
