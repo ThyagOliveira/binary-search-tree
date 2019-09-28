@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Tree.h"
 
 typedef struct node Node;
@@ -9,9 +10,7 @@ struct tree {
 };
 
 struct node {
-	int info;
     char * name;
-	Node * dad;
 	Node * left;
 	Node * right;
 };
@@ -35,25 +34,23 @@ void destroyTree(Tree * t) {
     free(t);
 }
 
-Node * add_rec(Node * root, int value, char * name) {
-    if(root != NULL) {
-        if(root->info > value) {
-            root->left = add_rec(root->left, value, name);
-        }
-        if(root->info < value) {
-            root->right = add_rec(root->right, value, name);
-        }
+Node * add_rec(Node * node, char * name) {
+    if(node != NULL) {
+        if(strcmp(name, node->name) < 0)
+            node->left = add_rec(node->left, name);                        
+        else
+            if(strcmp(name, node->name) > 0)
+                node->right = add_rec(node->right, name);
     } else {
-        root = malloc(sizeof(Node));
-        root->info = value;
-        root->name = name;
-        root->left = NULL;
-        root->right = NULL;
+        node = malloc(sizeof(Node));
+        node->name = name;
+        node->left = NULL;
+        node->right = NULL;
     }
 }
 
-void add(Tree * tree, int value, char * name) {
-    tree->root = add_rec(tree->root, value, name);
+void add(Tree * tree, char * name) {
+    tree->root = add_rec(tree->root, name);
 }
 
 
@@ -70,10 +67,10 @@ int count_nodes(Tree * tree) {
 
 int count_leaf_rec(Node * node) {
     if(node != NULL) {
-        if(node->left == NULL && node->right) {
-            return 1;
+        if(node->left == NULL || node->right == NULL) {
+            return count_leaf_rec(node->left) + count_leaf_rec(node->right);
         }
-        return count_leaf_rec(node->left) + count_leaf_rec(node->right);
+        return 1;
     }
     return 0;
 }
@@ -88,7 +85,7 @@ int height_rec(Node * node) {
         int heightRight = height_rec(node->right);
         return(heightLeft > heightRight ? heightLeft : heightRight) + 1;
     }
-    return 0;
+    return -1;
 }
 
 int height(Tree * tree) {
