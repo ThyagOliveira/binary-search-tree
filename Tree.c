@@ -16,31 +16,31 @@ struct node {
 };
 
 Tree * create() {
-    Tree * t = malloc(sizeof(Tree));
-    t->root = NULL;
-    return t;
+    Tree * tree = malloc(sizeof(Tree));
+    tree->root = NULL;
+    return tree;
 }
 
-void destroyNode(Node * n) {
-    if(n != NULL) {
-        destroyNode(n->left);
-        destroyNode(n->right);
-        free(n);
+void destroyTree_rec(Node * node) {
+    if(node != NULL) {
+        destroyNode(node->left);
+        destroyNode(node->right);
+        free(node);
     }
 }
 
-void destroyTree(Tree * t) {
-    destroyNode(t->root);
-    free(t);
+void destroyTree(Tree * tree) {
+    destroyTree_rec(tree->root);
+    free(tree);
 }
 
-Node * add_rec(Node * node, char * name) {
+Node * add_node_rec(Node * node, char * name) {
     if(node != NULL) {
         if(strcmp(name, node->name) < 0)
-            node->left = add_rec(node->left, name);                        
+            node->left = add_node_rec(node->left, name);                        
         else
             if(strcmp(name, node->name) > 0)
-                node->right = add_rec(node->right, name);
+                node->right = add_node_rec(node->right, name);
     } else {
         node = malloc(sizeof(Node));
         node->name = name;
@@ -49,8 +49,8 @@ Node * add_rec(Node * node, char * name) {
     }
 }
 
-void add(Tree * tree, char * name) {
-    tree->root = add_rec(tree->root, name);
+void add_node(Tree * tree, char * name) {
+    tree->root = add_node_rec(tree->root, name);
 }
 
 
