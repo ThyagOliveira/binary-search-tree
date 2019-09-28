@@ -91,3 +91,19 @@ int height_rec(Node * node) {
 int height(Tree * tree) {
     return height_rec(tree->root);
 }
+
+int search_rec(Node * node, char * name) {
+    if(node != NULL) {
+        if(strcmp(name, node->name) < 0)
+            return search_rec(node->left, name);
+        else
+            if(strcmp(name, node->name) > 0)
+                return search_rec(node->right, name);
+        return 1;
+    }
+    return 0;
+}
+
+int search(Tree * tree, char * name) {
+    return search_rec(tree->root, name);
+}
