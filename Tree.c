@@ -53,6 +53,39 @@ void add_node(Tree * tree, char * name) {
     tree->root = add_node_rec(tree->root, name);
 }
 
+Node * remove_node_rec(Node * node, char * name) {
+    if(node != NULL) {
+        if(strcmp(name, node->name) < 0)
+            node->left = remove_node_rec(node->left, name);
+        else 
+            if(strcmp(name, node->name) > 0)
+                node->right = remove_node_rec(node->right, name);
+            else {
+                Node * help = node;
+                if(node->left == NULL && node->right == NULL) {
+                    free(node);
+                } else {
+                    if(node->left == NULL || node->right == NULL) {
+                        if(node->left != NULL) {
+                            node = node->left;
+                            free(help);
+                        } else {
+                            if(node->right != NULL) {
+                                node = node->right;
+                                free(help);
+                            }
+                        }
+                    } else {
+                        // Nó com 2 filhos
+                    }
+                }                
+            }
+    }
+}
+
+void remove_node(Tree * tree, char * name) {
+    return remove_node_rec(tree->root, name);
+}
 
 int count_nodes_rec(Node * node) {
     if(node != NULL) {
