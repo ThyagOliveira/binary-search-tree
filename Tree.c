@@ -107,3 +107,35 @@ int search_rec(Node * node, char * name) {
 int search(Tree * tree, char * name) {
     return search_rec(tree->root, name);
 }
+
+void preOrder(Node * node) {
+    if(node != NULL) {
+        printf("%s", node->name);
+        preOrder(node->left);
+        preOrder(node->right);
+    }
+}
+
+void inOrder(Node * node) {
+    if(node != NULL) {
+        inOrder(node->left);
+        printf("%s", node->name);
+        inOrder(node->right);
+    }
+}
+
+void postOrder(Node * node) {
+    if(node != NULL) {
+        postOrder(node->left);
+        postOrder(node->right);
+        printf("%s", node->name);
+    }
+}
+
+void printTree(Tree * tree) {
+    if(tree->root == NULL)
+        printf("\t Primeiro carregue a árvore");
+    else
+        inOrder(tree->root);
+    printf("\n");
+}
