@@ -4,7 +4,8 @@
 
 void menu(Tree * tree) {
     int option = -1;
-    
+    char * substring = (char *) malloc(40 * sizeof(char));
+
     while(option != 10) {
         printf("\n\n\t\tMenu de Opções");
         printf("\n01. Recarregar arquivo");
@@ -28,6 +29,10 @@ void menu(Tree * tree) {
             print_tree(tree);
             break;
         case 3:
+            printf("Listar todos os nomes que contem uma substring fornecida\n");
+			printf("Insira a substring:\n");
+			scanf("%s", substring);
+			print_substring(tree,substring);
             break;
         case 4:                        
             break;

@@ -9,3 +9,4 @@ int count_leaf(Tree * tree);
 int height(Tree * tree);
 int search(Tree * tree, char * name);
 void print_tree(Tree * tree);
+void print_substring(Tree * tree, char * substring);

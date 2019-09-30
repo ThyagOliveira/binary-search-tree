@@ -169,3 +169,17 @@ void print_tree(Tree * tree) {
         printf("\n");
     }               
 }
+
+void print_substring_rec(Node * node, char * substring) {
+	if(node != NULL) {
+		print_substring_rec(node->left, substring);
+		if(strstr(node->name, substring)) {
+			printf("%s ", node->name);
+		}
+		print_substring_rec(node->right, substring);
+	}
+}
+void print_substring(Tree * tree, char * substring) {
+	print_substring_rec(tree->root, substring);
+	printf("\n");
+}
