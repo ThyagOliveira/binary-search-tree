@@ -54,6 +54,20 @@ void add_node(Tree * tree, char * name) {
     tree->root = add_node_rec(tree->root, name);
 }
 
+Node * remove_bigger(Node * node, char * bigger) {
+    if(node != NULL) {
+        if(node->right != NULL)
+            node->right = remove_bigger(node->right, bigger);
+        else {
+            Node * help = node;
+            bigger = node->name;
+            node = node->left;
+            free(help);
+        }
+    }
+    return node;
+}
+
 Node * remove_node_rec(Node * node, char * name) {
     if(node != NULL) {
         if(strcmp(name, node->name) < 0)
@@ -71,7 +85,9 @@ Node * remove_node_rec(Node * node, char * name) {
                         node = node->left != NULL ? node->left : node->right;
                         free(help);
                     } else {
-                        // Nó com 2 filhos
+                        char * bigger;
+                        node->left = remove_bigger(node->left, bigger);
+                        node->name = bigger;
                     }
                 }                
             }
