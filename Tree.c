@@ -21,16 +21,16 @@ Tree * create() {
     return tree;
 }
 
-void destroyTree_rec(Node * node) {
+void destroy_tree_rec(Node * node) {
     if(node != NULL) {
-        destroyNode(node->left);
-        destroyNode(node->right);
+        destroy_tree_rec(node->left);
+        destroy_tree_rec(node->right);
         free(node);
     }
 }
 
-void destroyTree(Tree * tree) {
-    destroyTree_rec(tree->root);
+void destroy_tree(Tree * tree) {
+    destroy_tree_rec(tree->root);
     free(tree);
 }
 
@@ -47,6 +47,7 @@ Node * add_node_rec(Node * node, char * name) {
         node->left = NULL;
         node->right = NULL;
     }
+    return node;
 }
 
 void add_node(Tree * tree, char * name) {
@@ -63,28 +64,23 @@ Node * remove_node_rec(Node * node, char * name) {
             else {
                 Node * help = node;
                 if(node->left == NULL && node->right == NULL) {
-                    free(node);
+                    node = NULL;
+                    free(help);
                 } else {
                     if(node->left == NULL || node->right == NULL) {
-                        if(node->left != NULL) {
-                            node = node->left;
-                            free(help);
-                        } else {
-                            if(node->right != NULL) {
-                                node = node->right;
-                                free(help);
-                            }
-                        }
+                        node = node->left != NULL ? node->left : node->right;
+                        free(help);
                     } else {
                         // Nó com 2 filhos
                     }
                 }                
             }
     }
+    return node;
 }
 
 void remove_node(Tree * tree, char * name) {
-    return remove_node_rec(tree->root, name);
+    remove_node_rec(tree->root, name);
 }
 
 int count_nodes_rec(Node * node) {
@@ -141,34 +137,35 @@ int search(Tree * tree, char * name) {
     return search_rec(tree->root, name);
 }
 
-void preOrder(Node * node) {
+void pre_order(Node * node) {
     if(node != NULL) {
-        printf("%s", node->name);
-        preOrder(node->left);
-        preOrder(node->right);
+        printf("%s ", node->name);
+        pre_order(node->left);
+        pre_order(node->right);
     }
 }
 
-void inOrder(Node * node) {
+void in_order(Node * node) {
     if(node != NULL) {
-        inOrder(node->left);
-        printf("%s", node->name);
-        inOrder(node->right);
+        in_order(node->left);
+        printf("%s ", node->name);
+        in_order(node->right);
     }
 }
 
-void postOrder(Node * node) {
+void post_order(Node * node) {
     if(node != NULL) {
-        postOrder(node->left);
-        postOrder(node->right);
-        printf("%s", node->name);
+        post_order(node->left);
+        post_order(node->right);
+        printf("%s ", node->name);
     }
 }
 
-void printTree(Tree * tree) {
+void print_tree(Tree * tree) {
     if(tree->root == NULL)
         printf("\t Primeiro carregue a árvore");
-    else
-        inOrder(tree->root);
-    printf("\n");
+    else {
+        in_order(tree->root);
+        printf("\n");
+    }               
 }
