@@ -2,9 +2,25 @@
 #include <stdlib.h>
 #include "Tree.h"
 
-void menu(Tree * tree) {
-    int option = -1;
+void remove_name(Tree * tree) {
+    char * name = (char *) malloc(40 * sizeof(char));
+    printf("Insira o nome a ser removido: ");    
+    scanf("%s", name);
+    fflush(stdin);
+    remove_node(tree, name);        
+    free(name);
+}
+
+void list_name_substring(Tree * tree) {
     char * substring = (char *) malloc(40 * sizeof(char));
+    printf("Listar todos os nomes que contem uma substring fornecida\n");
+    printf("Insira a substring:\n");
+    scanf("%s", substring);
+    print_substring(tree, substring);
+    free(substring);
+}
+void menu(Tree * tree) {
+    int option = -1;    
 
     while(option != 10) {
         printf("\n\n\t\tMenu de Opções");
@@ -29,14 +45,12 @@ void menu(Tree * tree) {
             print_tree(tree);
             break;
         case 3:
-            printf("Listar todos os nomes que contem uma substring fornecida\n");
-			printf("Insira a substring:\n");
-			scanf("%s", substring);
-			print_substring(tree,substring);
+            list_name_per_substring(tree);
             break;
         case 4:                        
             break;
         case 5:
+            remove_name(tree);            
             break;
         case 6:
             break;
