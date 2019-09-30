@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: compile
-      run: gcc Main.c -o Main
+      run: gcc Main.c Tree.c -o App
