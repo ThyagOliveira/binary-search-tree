@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include "Tree.h"
 
+void add_name(Tree * tree) {
+    char * name = (char *) malloc(40 * sizeof(char));
+    printf("Insira o nome a ser adicionado: ");
+    scanf("%s", name);
+    fflush(stdin);
+    add_node(tree, name);
+    free(name);
+}
+
 void remove_name(Tree * tree) {
     char * name = (char *) malloc(40 * sizeof(char));
     printf("Insira o nome a ser removido: ");    
@@ -47,7 +56,8 @@ void menu(Tree * tree) {
         case 3:
             list_name_substring(tree);
             break;
-        case 4:                        
+        case 4:    
+            add_name(tree);
             break;
         case 5:
             remove_name(tree);            
