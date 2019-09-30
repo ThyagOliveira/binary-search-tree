@@ -45,7 +45,7 @@ void menu(Tree * tree) {
             print_tree(tree);
             break;
         case 3:
-            list_name_per_substring(tree);
+            list_name_substring(tree);
             break;
         case 4:                        
             break;
