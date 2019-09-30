@@ -96,7 +96,7 @@ Node * remove_node_rec(Node * node, char * name) {
 }
 
 void remove_node(Tree * tree, char * name) {
-    remove_node_rec(tree->root, name);
+    tree->root = remove_node_rec(tree->root, name);
 }
 
 int count_nodes_rec(Node * node) {
