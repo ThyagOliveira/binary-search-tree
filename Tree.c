@@ -99,6 +99,55 @@ void remove_node(Tree * tree, char * name) {
     tree->root = remove_node_rec(tree->root, name);
 }
 
+Node * remove_node_biggest_rec(Node * node, char * name) {
+    if(node != NULL) {
+        if(strcmp(name, node->name) == 0){
+
+        }
+        if(strcmp(name, node->name) < 0) {
+            remove_node_rec(node, node->name);
+        }
+        remove_node_biggest_rec(node->right, name);
+    }
+    return node;
+}
+
+void remove_node_biggest_rec(Node ** root, char * name) {
+    Node * node = * root;
+    if(node != NULL) {
+        remove_node_biggest_rec(&node->right, name);
+        if(strcmp(name, node->name) < 0) {
+            remove_node_biggest_rec(&node->left, name);
+            Node * help = node;
+            node = node->left;
+            free(help);
+            * root = node;
+        }
+    }
+}
+
+void remove_node_biggest(Tree * tree, char * name) {
+    remove_node_biggest_rec(&tree->root, name);
+}
+
+void remove_node_smallest_rec(Node ** root, char * name) {
+    Node * node = * root;
+    if(node != NULL) {
+        remove_node_smallest_rec(&node->left, name);
+        if(strcmp(name, node->name) > 0) {
+            remove_node_smallest_rec(&node->right, name);
+            Node * help = node;
+            node = node->right;
+            free(help);
+            * root = node;
+        }
+    }
+}
+
+void remove_node_smallest(Tree * tree, char * name) {
+    remove_node_smallest_rec(&tree->root, name);
+}
+
 int count_nodes_rec(Node * node) {
     if(node != NULL) {
         return count_nodes_rec(node->left) + count_nodes_rec(node->right) + 1;

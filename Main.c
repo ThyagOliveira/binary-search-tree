@@ -20,6 +20,26 @@ void remove_name(Tree * tree) {
     free(name);
 }
 
+void remove_name_biggest(Tree * tree) {
+    char * name = (char *) malloc(40 * sizeof(char));
+    printf("Insira o nome: ");
+    scanf("%s", name);    
+    fflush(stdin);
+    remove_node_biggest(tree, name);
+    print_tree(tree);
+    free(name);
+}
+
+void remove_name_smallest(Tree * tree) {
+    char * name = (char *) malloc(40 * sizeof(char));
+    printf("Insira o nome: ");
+    scanf("%s", name);    
+    fflush(stdin);
+    remove_node_smallest(tree, name);
+    print_tree(tree);
+    free(name);
+}
+
 void list_name_substring(Tree * tree) {
     char * substring = (char *) malloc(40 * sizeof(char));
     printf("Listar todos os nomes que contem uma substring fornecida\n");
@@ -63,8 +83,10 @@ void menu(Tree * tree) {
             remove_name(tree);            
             break;
         case 6:
+            remove_name_biggest(tree);
             break;
         case 7:
+            remove_name_smallest(tree);
             break;
         case 8:
             break;
