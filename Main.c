@@ -55,7 +55,7 @@ void list_name_substring(Tree * tree) {
 }
 
 void save_file(Tree * tree) {
-	FILE * file = fopen("arquivo.txt", "w");
+	FILE * file = fopen("file.txt", "w");
 	save_file_in_order(tree, file);
 	fclose(file);
 	printf("Arquivo salvo com sucesso\n");

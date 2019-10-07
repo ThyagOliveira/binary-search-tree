@@ -3,6 +3,8 @@
 #include <string.h>
 #include "Tree.h"
 
+#define NAME_LENGHT 31
+
 typedef struct node Node;
 
 struct tree {
@@ -10,7 +12,7 @@ struct tree {
 };
 
 struct node {
-    char * name;
+    char name[NAME_LENGHT];
 	Node * left;
 	Node * right;
 };
@@ -34,7 +36,7 @@ void destroy_tree(Tree * tree) {
     free(tree);
 }
 
-Node * add_node_rec(Node * node, char * name) {
+Node * add_node_rec(Node * node, char name[]) {
     if(node != NULL) {
         if(strcmp(name, node->name) < 0)
             node->left = add_node_rec(node->left, name);                        
@@ -42,15 +44,15 @@ Node * add_node_rec(Node * node, char * name) {
             if(strcmp(name, node->name) > 0)
                 node->right = add_node_rec(node->right, name);
     } else {
-        node = malloc(sizeof(Node));
-        node->name = name;
+        node = malloc(sizeof(Node));        
+        strcpy(node->name, name);
         node->left = NULL;
         node->right = NULL;
     }
     return node;
 }
 
-void add_node(Tree * tree, char * name) {
+void add_node(Tree * tree, char name[]) {
     tree->root = add_node_rec(tree->root, name);
 }
 
@@ -87,7 +89,7 @@ Node * remove_node_rec(Node * node, char * name) {
                     } else {
                         char * bigger;
                         node->left = remove_bigger(node->left, bigger);
-                        node->name = bigger;
+                        strcpy(node->name, bigger);
                     }
                 }                
             }
@@ -233,5 +235,35 @@ void print_substring_rec(Node * node, char * substring) {
 }
 void print_substring(Tree * tree, char * substring) {
 	print_substring_rec(tree->root, substring);
-	printf("\n");
+}
+
+void load_file(Tree * tree) {
+	FILE * file = fopen("file.txt", "r");
+	char string[100];
+	char name[NAME_LENGHT];
+
+	destroy_tree_rec(tree->root);
+	tree->root = NULL;
+
+	if(file != NULL) {			
+		while( (fgets(string, sizeof string - 1, file)) != NULL) {
+			sscanf(string, "%[^\n]", name);
+			add_node(tree, name);
+		}
+
+	}
+	fclose(file);
+}
+
+void save_file_in_order_rec(Node * node, FILE * file) {
+	if(node != NULL) {
+		save_file_in_order_rec(node->left, file);
+		fprintf(file,"%s ", node->name);
+		fprintf(file, "\n");
+		save_file_in_order_rec(node->right, file);
+	}
+}
+
+void save_file_in_order(Tree * tree, FILE * file) {	
+	save_file_in_order_rec(tree->root, file);	
 }
