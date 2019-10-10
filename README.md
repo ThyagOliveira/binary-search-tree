@@ -1,6 +1,6 @@
 # binary-search-tree
 
-![CI status](https://github.com/ThyagOliveira/record-maintenance/workflows/CI/badge.svg)
+![CI status](https://github.com/ThyagOliveira/binary-search-tree/workflows/CI/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Objetivo
