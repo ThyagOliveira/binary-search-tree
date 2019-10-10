@@ -1,6 +1,7 @@
 # binary-search-tree
 
 ![CI status](https://github.com/ThyagOliveira/record-maintenance/workflows/CI/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Objetivo
 Desenvolver uma aplicação em linguagem C para dar manutenção em um cadastro de nomes de pessoas
